@@ -1,0 +1,89 @@
+## Tipos de Variables y Escalas de Medición
+
+(a) **Las calorías en un sándwich**
+
+    -   **Tipo de variable**: *Cuantitativa continua*\
+    -   **Escala de medición**: *Intervalo*
+
+(b) **Los partidos políticos presentes en las elecciones**
+
+    -   **Tipo de variable**: *Cualitativa nominal*\
+    -   **Escala de medición**: *Nominal*
+
+(c) **Si un niño vive con ambos padres**
+
+    -   **Tipo de variable**: *Cualitativa dicotómica*\
+    -   **Escala de medición**: *Nominal*
+
+(d) **La temperatura promedio de junio en la Ciudad de México**
+
+    -   **Tipo de variable**: *Cuantitativa continua*\
+    -   **Escala de medición**: *Intervalo*
+
+(e) **El número de semestres que un estudiante ha estado en la Facultad de Ciencias**
+
+    -   **Tipo de variable**: *Cuantitativa discreta*\
+    -   **Escala de medición**: *Razón*
+
+## En el archivo cucos.txt se presentan 50 mediciones (en mm) de huevos de cucos. El objetivo es realizar un analisis descriptivo de los datos. Para esto se requiere:
+
+(a) **Obtener la media, la desviacion estandar y cualquier otro tipo de medida numerica que consideres oportuna (e.g. curtosis, coeficiente de asimetr ́ıa, cuantiles, rango, etc.)**
+
+```{r}
+datos <- scan("cucos.txt")
+
+media <- mean(datos)
+
+desviacion_estandar <- sd(datos)
+
+mediana <- median(datos)
+
+cuartiles <- quantile(datos)
+
+curtosis <- e1071::kurtosis(datos)
+
+asimetria <- e1071::skewness(datos)
+
+rango <- range(datos)
+
+rango_intercuartil <- IQR(datos)
+
+# Mostrar los resultados con mensajes descriptivos
+cat("La media es:", media, "\n")
+cat("La desviación estándar es:", desviacion_estandar, "\n")
+cat("La mediana es:", mediana, "\n")
+cat("Los cuartiles son:\n")
+print(cuartiles)
+cat("La curtosis es:", curtosis, "\n")
+cat("El coeficiente de asimetría es:", asimetria, "\n")
+cat("El rango es:", rango[1], "a", rango[2], "\n")
+cat("El rango intercuartil es:", rango_intercuartil, "\n")
+```
+
+(b) **Obten el histograma y el diagrama de caja y bigotes.**
+
+```{r}
+# Cargar la librería ggplot2
+library(ggplot2)
+
+# Convertir los datos a un data frame
+datos_df <- data.frame(mediciones = datos)
+
+# Histograma con ggplot2
+ggplot(datos_df, aes(x = mediciones)) +
+  geom_histogram(binwidth = 0.9, fill = "lightblue", color = "black") +
+  labs(title = "Histograma de las mediciones de huevos de cucos", 
+       x = "Mediciones (mm)", y = "Frecuencia") +
+  theme_minimal()
+
+# Diagrama de caja y bigotes con ggplot2
+ggplot(datos_df, aes(x = mediciones)) +
+  geom_boxplot(fill = "lightgreen", color = "black") +
+  labs(title = "Diagrama de Caja y Bigotes", 
+       x = "Mediciones (mm)") +
+  theme_minimal()
+
+
+```
+
+(c) **¿Que puedes decir de estos datos?**
