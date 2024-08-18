@@ -69,14 +69,14 @@ library(ggplot2)
 # Convertir los datos a un data frame
 datos_df <- data.frame(mediciones = datos)
 
-# Histograma con ggplot2
+# Histograma
 ggplot(datos_df, aes(x = mediciones)) +
   geom_histogram(binwidth = 0.9, fill = "#E0EEE0", color = "#838B83") +
   labs(title = "Histograma de las mediciones de huevos de cucos", 
        x = "Mediciones (mm)", y = "Frecuencia") +
   theme_minimal()
 
-# Diagrama de caja y bigotes con ggplot2
+# Diagrama de caja y bigotes
 ggplot(datos_df, aes(x = mediciones)) +
   geom_boxplot(fill = "#E0EEE0", color = "#838B83") +
   labs(title = "Diagrama de Caja y Bigotes", 
@@ -114,7 +114,6 @@ print(tabla)
 
 ```
 
-
 (a) **A partir de las frecuencias registradas, dibuja un histograma de los datos.**
 
 ```{r}
@@ -126,7 +125,7 @@ frecuencia <- c(4, 19, 49, 98, 200, 195, 145, 100, 62, 37, 17, 12, 12, 9, 7, 7, 
 # Crear un data frame
 tabla <- data.frame(Peso = peso, Frecuencia = frecuencia)
 
-# Dibujar el histograma usando ggplot2
+# Dibujar el histograma  
 ggplot(tabla, aes(x = factor(Peso), y = Frecuencia)) +
   geom_bar(stat = "identity", fill = "#9F79EE", color = "#8968CD") +
   labs(title = "Histograma de Frecuencia por Peso", x = "Peso", y = "Frecuencia") +
@@ -134,8 +133,6 @@ ggplot(tabla, aes(x = factor(Peso), y = Frecuencia)) +
 
 ```
 
-
-
 (b) **¿Consideras que los pesos se puedan asumir que vengan de una distribucion normal? Justifica tu respuesta.**
 
-    - Pensaria que si de hecho si nos fijamos en la primera parte es decir aproximadamente desde los 40kg hasta los 95 kg notariamos que en general a pura vista si tiene forma de una distribucion normal, lo que principalmente noto es que hay muchos valores atipicos conforme el peso aumenta que es lo que nos podria impedir pensar en esta distribucion normal, por lo demas creo que es bastante probable que los datos vengan de una distribucion normal.
+    -   Pensaria que si de hecho si nos fijamos en la primera parte es decir aproximadamente desde los 40kg hasta los 95 kg notariamos que en general a pura vista si tiene forma de una distribucion normal, lo que principalmente noto es que hay muchos valores atipicos conforme el peso aumenta que es lo que nos podria impedir pensar en esta distribucion normal, por lo demas creo que es bastante probable que los datos vengan de una distribucion normal.
