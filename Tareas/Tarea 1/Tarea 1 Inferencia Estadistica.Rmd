@@ -71,22 +71,71 @@ datos_df <- data.frame(mediciones = datos)
 
 # Histograma con ggplot2
 ggplot(datos_df, aes(x = mediciones)) +
-  geom_histogram(binwidth = 0.9, fill = "lightblue", color = "black") +
+  geom_histogram(binwidth = 0.9, fill = "#E0EEE0", color = "#838B83") +
   labs(title = "Histograma de las mediciones de huevos de cucos", 
        x = "Mediciones (mm)", y = "Frecuencia") +
   theme_minimal()
 
 # Diagrama de caja y bigotes con ggplot2
 ggplot(datos_df, aes(x = mediciones)) +
-  geom_boxplot(fill = "lightgreen", color = "black") +
+  geom_boxplot(fill = "#E0EEE0", color = "#838B83") +
   labs(title = "Diagrama de Caja y Bigotes", 
        x = "Mediciones (mm)") +
   theme_minimal()
-
 
 ```
 
 (c) **¿Que puedes decir de estos datos?**
 
+    -   **Media y Mediana:** La media es 22.256 y la mediana es 22.15, lo que sugiere que los datos están centrados cerca de este valor.
 
-gusnabana
+    -   **Desviación Estándar:** Es 1.102902, lo que indica que las mediciones no están demasiado dispersas respecto a la media.
+
+    -   **Curtosis y Asimetría:** La curtosis es -0.07273527, cercana a 0, lo que indica una distribución con colas no demasiado pesadas. La asimetría es -0.1060574, también cercana a 0, lo que sugiere que la distribución es casi simétrica.
+
+    -   **Boxplot:** El boxplot permite identificar visualmente la mediana, los cuartiles y los valores atípicos los cuales hay 4.
+
+    -   **Posible distribucion:** Ademas notemos que por lo mencionado anteriormente se distribuye de manera normal
+
+## 3.- Considera la Tabla 1, en donde se presenta la tabla de frecuencias para los pesos registrados de 985 varones de la Ciudad de Mexico.
+
+**Construccion de la Tabla 1 dada:**
+
+```{r}
+# Definir los datos
+peso <- c(40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135)
+frecuencia <- c(4, 19, 49, 98, 200, 195, 145, 100, 62, 37, 17, 12, 12, 9, 7, 7, 6, 5, 0, 1)
+
+# Crear un data.frame
+tabla <- data.frame(Peso = peso, Frecuencia = frecuencia)
+
+# Ver la tabla
+print(tabla)
+
+```
+
+
+(a) **A partir de las frecuencias registradas, dibuja un histograma de los datos.**
+
+```{r}
+
+# Definir los datos
+peso <- c(40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135)
+frecuencia <- c(4, 19, 49, 98, 200, 195, 145, 100, 62, 37, 17, 12, 12, 9, 7, 7, 6, 5, 0, 1)
+
+# Crear un data frame
+tabla <- data.frame(Peso = peso, Frecuencia = frecuencia)
+
+# Dibujar el histograma usando ggplot2
+ggplot(tabla, aes(x = factor(Peso), y = Frecuencia)) +
+  geom_bar(stat = "identity", fill = "#9F79EE", color = "#8968CD") +
+  labs(title = "Histograma de Frecuencia por Peso", x = "Peso", y = "Frecuencia") +
+  theme_minimal()
+
+```
+
+
+
+(b) **¿Consideras que los pesos se puedan asumir que vengan de una distribucion normal? Justifica tu respuesta.**
+
+    - Pensaria que si de hecho si nos fijamos en la primera parte es decir aproximadamente desde los 40kg hasta los 95 kg notariamos que en general a pura vista si tiene forma de una distribucion normal, lo que principalmente noto es que hay muchos valores atipicos conforme el peso aumenta que es lo que nos podria impedir pensar en esta distribucion normal, por lo demas creo que es bastante probable que los datos vengan de una distribucion normal.
