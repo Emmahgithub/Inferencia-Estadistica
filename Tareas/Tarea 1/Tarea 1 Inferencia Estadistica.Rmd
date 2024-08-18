@@ -89,3 +89,4 @@ ggplot(datos_df, aes(x = mediciones)) +
 (c) **¿Que puedes decir de estos datos?**
 
 
+En la sandia de 139842
