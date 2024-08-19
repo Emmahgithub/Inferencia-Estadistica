@@ -136,3 +136,17 @@ ggplot(tabla, aes(x = factor(Peso), y = Frecuencia)) +
 (b) **¿Consideras que los pesos se puedan asumir que vengan de una distribucion normal? Justifica tu respuesta.**
 
     -   Pensaria que si de hecho si nos fijamos en la primera parte es decir aproximadamente desde los 40kg hasta los 95 kg notariamos que en general a pura vista si tiene forma de una distribucion normal, lo que principalmente noto es que hay muchos valores atipicos conforme el peso aumenta que es lo que nos podria impedir pensar en esta distribucion normal, por lo demas creo que es bastante probable que los datos vengan de una distribucion normal.
+
+## 4. Los datos en la Tabla 2 corresponden al peso m ́aximo (en toneladas) soportado por un conjunto de cables de acero producidos en una f ́abrica.
+
+(a) **Represente los datos en un histograma. Utilice intervalos de clase de longitud 1.**
+
+(b) **Construya un segundo histograma, esta vez con longitud de intervalo 2. Compare con el anterior.**
+
+(c) **Obtenga el diagrama de caja y brazos de los datos.**
+
+(d) **¿Cual es el peso aproximado que soporta al menos el 75% de los cables?**
+
+(e) **Indique en el diagrama de caja el valor del inciso anterior.**
+
+(f) **Identifique si hay presencia de valores atıpicos.**
