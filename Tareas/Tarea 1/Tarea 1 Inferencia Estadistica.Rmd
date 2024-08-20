@@ -1,4 +1,4 @@
-## Tipos de Variables y Escalas de Medición
+## 1.- Tipos de Variables y Escalas de Medición
 
 (a) **Las calorías en un sándwich**
 
@@ -25,7 +25,7 @@
     -   **Tipo de variable**: *Cuantitativa discreta*\
     -   **Escala de medición**: *Razón*
 
-## En el archivo cucos.txt se presentan 50 mediciones (en mm) de huevos de cucos. El objetivo es realizar un analisis descriptivo de los datos. Para esto se requiere:
+## 2.- En el archivo cucos.txt se presentan 50 mediciones (en mm) de huevos de cucos. El objetivo es realizar un analisis descriptivo de los datos. Para esto se requiere:
 
 (a) **Obtener la media, la desviacion estandar y cualquier otro tipo de medida numerica que consideres oportuna (e.g. curtosis, coeficiente de asimetr ́ıa, cuantiles, rango, etc.)**
 
@@ -103,11 +103,11 @@ ggplot(datos_df, aes(x = mediciones)) +
 
 ```{r}
 # Definir los datos
-peso <- c(40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135)
-frecuencia <- c(4, 19, 49, 98, 200, 195, 145, 100, 62, 37, 17, 12, 12, 9, 7, 7, 6, 5, 0, 1)
+pesos <- c(40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135)
+frecuencias <- c(4, 19, 49, 98, 200, 195, 145, 100, 62, 37, 17, 12, 12, 9, 7, 7, 6, 5, 0, 1)
 
 # Crear un data.frame
-tabla <- data.frame(Peso = peso, Frecuencia = frecuencia)
+tabla <- data.frame(Peso = pesos, Frecuencia = frecuencias)
 
 # Ver la tabla
 print(tabla)
@@ -137,16 +137,100 @@ ggplot(tabla, aes(x = factor(Peso), y = Frecuencia)) +
 
     -   Pensaria que si de hecho si nos fijamos en la primera parte es decir aproximadamente desde los 40kg hasta los 95 kg notariamos que en general a pura vista si tiene forma de una distribucion normal, lo que principalmente noto es que hay muchos valores atipicos conforme el peso aumenta que es lo que nos podria impedir pensar en esta distribucion normal, por lo demas creo que es bastante probable que los datos vengan de una distribucion normal.
 
-## 4. Los datos en la Tabla 2 corresponden al peso m ́aximo (en toneladas) soportado por un conjunto de cables de acero producidos en una f ́abrica.
+## 4.- Los datos en la Tabla 2 corresponden al peso maximo (en toneladas) soportado por un conjunto de cables de acero producidos en una fabrica.
+
+**Construccion de la Tabla 2 dada:**
+
+```{r}
+# Crear la tabla
+tabla2 <- matrix(c(10.1, 12.2, 9.3, 12.4, 13.7, 11.1, 13.3,
+                   10.8, 11.6, 10.1, 11.2, 11.4, 11.8, 7.1,
+                   12.2, 12.6, 9.2, 14.2, 10.5, 12.3, 11.2), 
+                 nrow = 3, ncol = 7, byrow = TRUE)
+
+# Mostrar la tabla
+
+print(tabla2)
+
+```
 
 (a) **Represente los datos en un histograma. Utilice intervalos de clase de longitud 1.**
 
+```{r}
+
+# Histograma 
+ggplot(df, aes(x = Peso)) +
+  geom_histogram(binwidth = 1, fill = "#5D478B", color = "#8968CD") +
+  labs(title = "Histograma con intervalos de clase 1", 
+       x = "Peso soportado", 
+       y = "Frecuencia") +
+  theme_minimal() +
+  coord_flip()
+```
+
 (b) **Construya un segundo histograma, esta vez con longitud de intervalo 2. Compare con el anterior.**
+
+```{r}
+# Histograma 
+ggplot(df, aes(x = Peso)) +
+  geom_histogram(binwidth = 2, fill = "#5D478B", color = "#8968CD") +
+  labs(title = "Histograma con intervalos de clase 1", 
+       x = "Peso soportado", 
+       y = "Frecuencia") +
+  theme_minimal() +
+  coord_flip()
+
+```
 
 (c) **Obtenga el diagrama de caja y brazos de los datos.**
 
+```{r}
+# Diagrama de caja y brazos
+ggplot(df, aes(x = "", y = Peso)) +
+  geom_boxplot(fill = "#5D478B") +
+  labs(title = "Diagrama de caja y brazos del peso soportado", 
+       x = "", 
+       y = "Peso soportado") +
+  theme_minimal() +
+  coord_flip()
+
+```
+
 (d) **¿Cual es el peso aproximado que soporta al menos el 75% de los cables?**
+
+```{r}
+# Calcular el percentil 75
+
+peso_75 <- quantile(df$Peso, 0.75)
+
+print(peso_75)
+```
 
 (e) **Indique en el diagrama de caja el valor del inciso anterior.**
 
+```{r}
+# Diagrama de caja y brazos con el percentil 75 indicado
+ggplot(df, aes(x = "", y = Peso)) +
+  geom_boxplot(fill = "lightcoral") +
+  geom_hline(yintercept = peso_75, color = "blue", linetype = "dashed", size = 1) +
+  labs(title = "Diagrama de caja y brazos con percentil 75", 
+       x = "", 
+       y = "Peso soportado") +
+  theme_minimal() +
+  coord_flip()
+```
+
 (f) **Identifique si hay presencia de valores atıpicos.**
+
+Hay 1 solo valor atipico el cual es el cable el cual solo soporto 7.1 toneladas.
+
+## 5.- En un ensayo clınico se seleccionaron 1000 voluntarios mexicanos y se registro su grupo sangu ́ıneo. Los datos estan contenidos en el archivo tipoSangre.txt, donde los valores de las variable tipocorresponden a los siguientes grupos sangu ́ıneos: 1 = O+, 2 = A+, 3 = B+, 4 = AB+, 5 = O−,6 = A−, 7 = B− y 8 = AB−. Considerando la variable tipo como una variable categorica realice lo siguiente:
+
+(a) **Calcule la tabla de frecuencias absolutas y relativas.**
+
+(b) **Construya la grafica de barras.**
+
+(c) **Obtenga la gr ́afica de pie/pastel/dona.**
+
+(d) **¿Que se puede decir sobre la distribucion de los tipos de sangre? ¿Puede dar una aproximacion para la proporcion de la poblacion mexicana que tiene grupo sanguıneo B+?**
+
