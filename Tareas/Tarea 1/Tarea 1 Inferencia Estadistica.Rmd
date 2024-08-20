@@ -226,11 +226,62 @@ Hay 1 solo valor atipico el cual es el cable el cual solo soporto 7.1 toneladas.
 
 ## 5.- En un ensayo clınico se seleccionaron 1000 voluntarios mexicanos y se registro su grupo sangu ́ıneo. Los datos estan contenidos en el archivo tipoSangre.txt, donde los valores de las variable tipocorresponden a los siguientes grupos sangu ́ıneos: 1 = O+, 2 = A+, 3 = B+, 4 = AB+, 5 = O−,6 = A−, 7 = B− y 8 = AB−. Considerando la variable tipo como una variable categorica realice lo siguiente:
 
+```{r}
+# Cargar los datos
+datos <- read.table("tipoSangre.txt", col.names = "tipo")
+print(datos)
+```
+
 (a) **Calcule la tabla de frecuencias absolutas y relativas.**
+
+```{r}
+# Convertir la variable en un factor con etiquetas significativas
+datos$tipo <- factor(datos$tipo, levels = 1:8, labels = c("O+", "A+", "B+", "AB+", "O-", "A-", "B-", "AB-"))
+
+# Calcular frecuencias absolutas
+frecuencias_absolutas <- table(datos$tipo)
+
+# Calcular frecuencias relativas
+frecuencias_relativas <- prop.table(frecuencias_absolutas)
+
+# Mostrar los resultados
+cat("Las frecuencias absolutas son:\n")
+print(frecuencias_absolutas)
+cat("Las frecuencias relativas son:\n")
+print(frecuencias_relativas)
+
+```
 
 (b) **Construya la grafica de barras.**
 
-(c) **Obtenga la gr ́afica de pie/pastel/dona.**
+    ```{r}
+# Crear la gráfica de barras
+ggplot(datos, aes(x = tipo)) +
+  geom_bar(fill = "skyblue") +
+  labs(title = "Distribución de Grupos Sanguíneos",
+       x = "Tipo de Sangre",
+       y = "Frecuencia") +
+  theme_minimal()
+    ```
+
+(c) **Obtenga la grafica de pie/pastel/dona.**
+
+```{r}
+ggplot(datos, aes(x = "", fill = tipo)) +
+  geom_bar(width = 1, color = "black") +  
+  # Añadir borde blanco entre las secciones
+  coord_polar(theta = "y") +               
+  # Convertir el gráfico de barras en gráfico de pastel
+  labs(title = "Distribución de Grupos Sanguíneos",
+       fill = "Tipo de Sangre") +          
+  # Título y etiqueta de la leyenda
+  theme_void() + 
+  # Quitar etiquetas de ejes y fondo
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"), 
+        # Centrar título y ajustar tamaño y fuente
+        legend.position = "right") +      # Ubicar la leyenda a la derecha
+  scale_fill_manual(values = c("skyblue", "lightgreen", "lightcoral", "lightgoldenrod", "lightpink", "lightcyan", "lightyellow", "lightgray")) 
+```
+
 
 (d) **¿Que se puede decir sobre la distribucion de los tipos de sangre? ¿Puede dar una aproximacion para la proporcion de la poblacion mexicana que tiene grupo sanguıneo B+?**
-
