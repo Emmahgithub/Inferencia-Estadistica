@@ -125,11 +125,21 @@ frecuencia <- c(4, 19, 49, 98, 200, 195, 145, 100, 62, 37, 17, 12, 12, 9, 7, 7, 
 # Crear un data frame
 tabla <- data.frame(Peso = peso, Frecuencia = frecuencia)
 
-# Dibujar el histograma  
+# Histograma
 ggplot(tabla, aes(x = factor(Peso), y = Frecuencia)) +
-  geom_bar(stat = "identity", fill = "#9F79EE", color = "#8968CD") +
-  labs(title = "Histograma de Frecuencia por Peso", x = "Peso", y = "Frecuencia") +
-  theme_minimal()
+  geom_bar(stat = "identity", fill = "#9F79EE", color = "#8968CD", size = 0.5) +  # Ajustar borde y relleno
+  labs(title = "Histograma de Frecuencia por Peso",
+       x = "Peso",
+       y = "Frecuencia") +
+  theme_minimal() +  # Tema minimalista
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),  # Título centrado y ajustado
+        axis.title.x = element_text(size = 10, face = "bold"),  # Etiqueta del eje x ajustada
+        axis.title.y = element_text(size = 14, face = "bold"),  # Etiqueta del eje y ajustada
+        axis.text.x = element_text(size = 12, angle = 45, hjust = 1),  # Texto del eje x ajustado y girado para mejor visibilidad
+        axis.text.y = element_text(size = 12))  # Texto del eje y ajustado
+
+# Guardar el gráfico 
+ggsave("Histograma de Frecuencia por Peso.png", width = 8, height = 6, dpi = 300)
 
 ```
 
@@ -157,15 +167,23 @@ print(tabla2)
 (a) **Represente los datos en un histograma. Utilice intervalos de clase de longitud 1.**
 
 ```{r}
-
+df <- data.frame(Peso = as.vector(tabla2))
 # Histograma 
 ggplot(df, aes(x = Peso)) +
-  geom_histogram(binwidth = 1, fill = "#5D478B", color = "#8968CD") +
+  geom_histogram(binwidth = 1, fill = "#5D478B", color = "#8968CD", size = 0.5) +  # Ajustar el borde y el relleno
   labs(title = "Histograma con intervalos de clase 1", 
        x = "Peso soportado", 
        y = "Frecuencia") +
-  theme_minimal() +
-  coord_flip()
+  theme_minimal() +  # Tema minimalista
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),  # Título centrado y ajustado
+        axis.title.x = element_text(size = 14, face = "bold"),  # Etiqueta del eje x ajustada
+        axis.title.y = element_text(size = 14, face = "bold"),  # Etiqueta del eje y ajustada
+        axis.text.x = element_text(size = 12),  # Texto del eje x ajustado
+        axis.text.y = element_text(size = 12)) +  # Texto del eje y ajustado
+  coord_flip()  # Voltear el gráfico para mejor visibilidad
+
+# Guardar el gráfico 
+ggsave("Histograma con intervalos de clase 1.png", width = 8, height = 6, dpi = 300)
 ```
 
 (b) **Construya un segundo histograma, esta vez con longitud de intervalo 2. Compare con el anterior.**
@@ -173,13 +191,20 @@ ggplot(df, aes(x = Peso)) +
 ```{r}
 # Histograma 
 ggplot(df, aes(x = Peso)) +
-  geom_histogram(binwidth = 2, fill = "#5D478B", color = "#8968CD") +
-  labs(title = "Histograma con intervalos de clase 1", 
+  geom_histogram(binwidth = 2, fill = "#5D478B", color = "#8968CD", size = 0.5) +  # Ajustar el borde y el relleno
+  labs(title = "Histograma con intervalos de clase 2", 
        x = "Peso soportado", 
        y = "Frecuencia") +
-  theme_minimal() +
-  coord_flip()
+  theme_minimal() +  # Tema minimalista
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),  # Título centrado y ajustado
+        axis.title.x = element_text(size = 14, face = "bold"),  # Etiqueta del eje x ajustada
+        axis.title.y = element_text(size = 14, face = "bold"),  # Etiqueta del eje y ajustada
+        axis.text.x = element_text(size = 12),  # Texto del eje x ajustado
+        axis.text.y = element_text(size = 12)) +  # Texto del eje y ajustado
+  coord_flip()  # Voltear el gráfico para mejor visibilidad
 
+# Guardar el gráfico 
+ggsave("Histograma con intervalos de clase 2.png", width = 8, height = 6, dpi = 300)
 ```
 
 (c) **Obtenga el diagrama de caja y brazos de los datos.**
@@ -191,8 +216,15 @@ ggplot(df, aes(x = "", y = Peso)) +
   labs(title = "Diagrama de caja y brazos del peso soportado", 
        x = "", 
        y = "Peso soportado") +
-  theme_minimal() +
-  coord_flip()
+  theme_minimal() + # Tema minimalista
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),  # Título centrado y ajustado
+        axis.title.x = element_text(size = 14, face = "bold"),  # Etiqueta del eje x ajustada
+        axis.title.y = element_text(size = 14, face = "bold"),  # Etiqueta del eje y ajustada
+        axis.text.x = element_text(size = 12),  # Texto del eje x ajustado
+        axis.text.y = element_text(size = 12)) +  # Texto del eje y ajustado
+  coord_flip()  # Voltear el gráfico para mejor visibilidad
+# Guardar el gráfico aka cabron
+ggsave("Diagrama de caja y brazos del peso soportado.png", width = 8, height = 6, dpi = 300)
 
 ```
 
@@ -209,15 +241,22 @@ print(peso_75)
 (e) **Indique en el diagrama de caja el valor del inciso anterior.**
 
 ```{r}
-# Diagrama de caja y brazos con el percentil 75 indicado
+# Crear el diagrama de caja y bigotes 
 ggplot(df, aes(x = "", y = Peso)) +
-  geom_boxplot(fill = "lightcoral") +
-  geom_hline(yintercept = peso_75, color = "blue", linetype = "dashed", size = 1) +
-  labs(title = "Diagrama de caja y brazos con percentil 75", 
-       x = "", 
+  geom_boxplot(fill = "#5D478B", color = "black", size = 0.5) +  # Borde negro más definido y relleno en color coral
+  geom_hline(yintercept = peso_75, color = "#1E90FF", linetype = "dashed", size = 1) +  # Línea del percentil 75
+  labs(title = "Diagrama de caja y brazos con percentil 75",
+       x = "",
        y = "Peso soportado") +
-  theme_minimal() +
-  coord_flip()
+  theme_minimal() +  # Tema minimalista
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),  # Título centrado y ajustado
+        axis.title.x = element_text(size = 14, face = "bold"),  # Etiqueta del eje x ajustada
+        axis.title.y = element_text(size = 14, face = "bold"),  # Etiqueta del eje y ajustada
+        axis.text.x = element_text(size = 12),  # Texto del eje x ajustado
+        axis.text.y = element_text(size = 12)) +  # Texto del eje y ajustado
+  coord_flip()  # Voltear el gráfico para mejor visibilidad
+# Guardar el gráfico aka cabron
+ggsave("diagrama_caja_percentil_75.png", width = 8, height = 6, dpi = 300)
 ```
 
 (f) **Identifique si hay presencia de valores atıpicos.**
@@ -257,31 +296,94 @@ print(frecuencias_relativas)
     ```{r}
 # Crear la gráfica de barras
 ggplot(datos, aes(x = tipo)) +
-  geom_bar(fill = "skyblue") +
+  geom_bar(fill = "#87CEEB", color = "black", size = 0.5) +  # Borde negro más definido
   labs(title = "Distribución de Grupos Sanguíneos",
        x = "Tipo de Sangre",
        y = "Frecuencia") +
-  theme_minimal()
+  theme_minimal() +  # Tema minimalista
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),  # Título centrado y ajustado
+        axis.title.x = element_text(size = 12, face = "bold"),  # Etiqueta del eje x ajustada
+        axis.title.y = element_text(size = 14, face = "bold"),  # Etiqueta del eje y ajustada
+        axis.text.x = element_text(size = 12),  # Texto del eje x ajustado
+        axis.text.y = element_text(size = 12)) +  # Texto del eje y ajustado
+  scale_x_discrete(drop = FALSE)  # Asegura que todos los niveles de 'tipo' se muestren
+
+# Guardar el gráfico aka cabron
+ggsave("grafico_barras_grupos_sanguineos.png", width = 8, height = 6, dpi = 300)
     ```
 
 (c) **Obtenga la grafica de pie/pastel/dona.**
 
 ```{r}
+# Crear el gráfico
 ggplot(datos, aes(x = "", fill = tipo)) +
-  geom_bar(width = 1, color = "black") +  
-  # Añadir borde blanco entre las secciones
-  coord_polar(theta = "y") +               
-  # Convertir el gráfico de barras en gráfico de pastel
+  geom_bar(width = 1, color = "black", size = 0.5) +  # Borde blanco más definido entre secciones
+  coord_polar(theta = "y") +  # Convertir el gráfico de barras en gráfico de pastel
   labs(title = "Distribución de Grupos Sanguíneos",
-       fill = "Tipo de Sangre") +          
-  # Título y etiqueta de la leyenda
-  theme_void() + 
-  # Quitar etiquetas de ejes y fondo
-  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"), 
-        # Centrar título y ajustar tamaño y fuente
-        legend.position = "right") +      # Ubicar la leyenda a la derecha
-  scale_fill_manual(values = c("skyblue", "lightgreen", "lightcoral", "lightgoldenrod", "lightpink", "lightcyan", "lightyellow", "lightgray")) 
+       fill = "Tipo de Sangre") +  # Título y etiqueta de la leyenda
+  theme_void() +  # Quitar etiquetas de ejes y fondo
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),  # Centrar título y ajustar tamaño y fuente
+        legend.position = "right",  # Ubicar la leyenda a la derecha
+        legend.title = element_text(size = 12, face = "bold"),  # Ajustar tamaño y estilo del título de la leyenda
+        legend.text = element_text(size = 10)) +  # Ajustar tamaño de texto de la leyenda
+  scale_fill_manual(values = c("#6A5ACD", "#32CD32", "#FF6347", "#FFD700", 
+                               "#FF69B4", "#00FFFF", "#FFFFE0", "#D3D3D3"))  # Colores más definidos
+
+# Guardar el gráfico aka cabron
+ggsave("grafico_grupos_sanguineos.png", width = 8, height = 6, dpi = 300)
 ```
 
 
 (d) **¿Que se puede decir sobre la distribucion de los tipos de sangre? ¿Puede dar una aproximacion para la proporcion de la poblacion mexicana que tiene grupo sanguıneo B+?**
+
+
+## Para analizar el clima organizacional de JPS Funds, el CEO Steve Shanahan decidio elaborar una encuesta constituida por 29 preguntas y cuya informaci ́on se puede encontrar en el archivo climaOrganizacional.txt. Cada una de estas preguntas pertenece a alguna de las siguientes ramas: liderazgo, capacitacion, comunicacion, condiciones economicas, entorno fısico e instituci ́on en general. Esta encuesta fue respondida por 11 empleados, donde cada pregunta podıa ser respondida en una escala del 1 al 3 o NA. En esta escala, el 1 representa estar totalmente de acuerdo, el 2 estar parcialmente de acuerdo y el 3 estar en desacuerdo. Realiza un analisis descriptivo de estos datos, para lo cual puedes considerar lo siguiente:
+
+```{r}
+# Cargar el archivo de texto
+datos <- read.csv("climaOrganizacional.txt", sep=",")
+```
+
+
+(a) ¿Que porcentaje de hombres y mujeres participaron en la encuesta?
+
+```{r}
+# Contar el número de hombres y mujeres
+tabla_sexos <- table(datos$Sexo)
+
+# Calcular el porcentaje
+porcentaje_sexos <- prop.table(tabla_sexos) * 100
+print(porcentaje_sexos)
+```
+
+
+(b) ¿Que puedes decir sobre la edad de los encuestados?
+
+```{r}
+# Convertir el rango de edad a un factor y contar
+tabla_edad <- table(datos$Rango.de.edad)
+print(tabla_edad)
+
+# Si necesitas estadísticas descriptivas adicionales
+library(dplyr)
+# Extraer el rango mínimo de edad de las categorías y convertir a numérico
+datos$Edad <- as.numeric(gsub("^[^0-9]*", "", datos$Rango.de.edad))
+
+# Verificar y mostrar los valores NA para entender por qué se introdujeron
+valores_na <- datos$Rango.de.edad[is.na(datos$Edad)]
+print(valores_na)
+
+# Imprimir resumen de la edad
+estadisticas_edad <- summary(datos$Edad)
+print(estadisticas_edad)
+
+```
+
+
+(c) ¿Cuales son las preguntas que tienen la peor valuacion? Para esto considera la suma de las valuaciones por pregunta y obten su histograma y su diagrama de caja. ¿Hay valores atıpicos?
+
+(d) ¿Que conclusiones puedes sacar de las preguntas con un valor mayor o igual a 20?
+
+(e) ¿Que conclusiones puedes obtener de las preguntas mejor valoradas?
+
+(f) ¿Que le recomendar ́ıas a Steve Shanahan para mejorar el clima organizacional de JPS Funds?
